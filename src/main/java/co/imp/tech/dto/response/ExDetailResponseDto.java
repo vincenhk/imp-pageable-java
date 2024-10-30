@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ExDetailResponseDto {
     private String id;
+    private String title;
+    private String content;
     private String description;
     private String mention;
 }

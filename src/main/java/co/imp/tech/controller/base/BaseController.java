@@ -60,7 +60,7 @@ public class BaseController {
         response.setPageSize(paginationResponseDto.getPageSize());
         response.setCurrentPage(paginationResponseDto.getCurrentPage());
         response.setTotalPages(paginationResponseDto.getTotalPage());
-        response.setTotalRecords(paginationResponseDto.getTotalRecord());
+//        response.setTotalRecords(paginationResponseDto.getTotalRecord());
 
         return ResponseEntity.status(responseStatusCode.getHttpCode()).body(response);
     }
