@@ -87,6 +87,23 @@ When using Pageable, Spring Data provides the following result types:
 
 ```
 
+### Note
+If the pageable data is not compatible with the size determination, it means that it needs to search for data that becomes recursive, to overcome this it needs to create a different one but it needs to create a sub query with the data wrapped in a new table like subquery for complex cannot be handled in JPQL it needs nativeQuery because the reference is not JSON but the table itself.
+
+1. JPQL
+```
+    @Query(value = "select d from ExDocument d left join d.exApprovalPics")
+    Page<ExDocument> getMonitor(Pageable pageable);
+```
+
+2. Native
+```
+    @Query(value = "select distinct d.* from imp_document d left join imp_approval_pic a on d.id = a.document_id",
+            countQuery = "select count(d.*) from imp_document d left join imp_approval_pic a on d.id = a.document_id",
+            nativeQuery = true)
+    Page<ExDocument> getMonitorWpic(Pageable pageable);
+```
+
 ## Conclusion
 `Pageable` in Spring Data JPA is a powerful tool for implementing pagination and sorting in database queries. It improves performance and provides a more manageable way to deal with large datasets. By defining paginated queries in the repository and managing results in your service or controller, you can efficiently handle data for your application.
 
